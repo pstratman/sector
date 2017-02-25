@@ -12,3 +12,5 @@ The goal of Sector is to flesh out what resources these applications are using i
 
 Sector is meant to be a monitoring application and will never be intrusive or bug you with popup notifications and reminders to check back in with it. The merit in Sector is its ability to bring you up to speed about what your technology is doing behind the scenes and give you some comfort about the applications that you are downloading from the app store.
 
+## Project Timeline
+![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/GANTT.JPG)
