@@ -14,3 +14,12 @@ Sector is meant to be a monitoring application and will never be intrusive or bu
 
 ## Project Timeline
 ![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/GANTT.JPG)
+
+## Risk List
+|Risk name (value)  | Impact     | Likelihood | Description |
+|-------------------|------------|------------|-------------|
+| Lack of Experience (48) | 8 | 6 | No experience with Android developement  |
+| Lack of Time (30) | 6 | 5 | Other classes, work and personal things getting in the way |
+| Loss of Work (28) | 7 | 4 | Loosing my work here at home or in the cloud |
+| Lack of Tools (24) | 8 | 3 | I don't know how many tools are out there for developing Android applications |
+| Technical Problems (6) | 3 | 2 | Computer problems here are home causing delay |
