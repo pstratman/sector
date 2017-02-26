@@ -67,4 +67,14 @@ Acceptance Criteria:
 ### Use and Misuse case diagram
 ![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Use%20and%20Misuse%20-%20Page%201.jpeg)
 
+## Resources Required
+|Resource  | Dr. Hale needed? | Investigating Team member | Description |
+|-------------------|---------|---------------------------|-------------|
+| Jave 1.8 JDK | No | Paul | Need the dev kit for Java |
+| Android Studio or other IDE | No | Paul | Need a good IDE for development |
+| Test Platform | No | Paul | A tablet or phone I don't care about that I can deploy to |
+| Inspiration and Teacherly Advice | Yes | Paul | In case I have questions about the project |
+
+
+
 
