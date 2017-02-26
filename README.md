@@ -23,3 +23,48 @@ Sector is meant to be a monitoring application and will never be intrusive or bu
 | Loss of Work (28) | 7 | 4 | Loosing my work here at home or in the cloud |
 | Lack of Tools (24) | 8 | 3 | I don't know how many tools are out there for developing Android applications |
 | Technical Problems (6) | 3 | 2 | Computer problems here are home causing delay |
+
+## Application Requirements
+
+### Important User Stories
+
+#### As a **user**, I want to **view the applications on my android phone** so I can **monitor them in Sector.**
+
+Acceptance Criteria:
+
+1. The application shows a list of the running applications on the phone.
+2. The application provides the description of the application from the operating system.
+
+As a **user**, I want to **view the resources allocated to the applications running on my Android phone** so I can **monitor them in Sector.**
+
+Acceptance Criteria:
+
+1. Each application in Sector can be selected.
+2. The selected application will provide further details about what resources the application is using.
+
+As a **user**, I want to **view the resources the applications originally requested** so I can **make comparisons with actual use in Sector. ** 
+
+Acceptance Criteria:
+
+1. Sector provides the original set of permissions associated with each application.
+2. This information is accessible from that applications information page
+
+As a **developer **, I want to **create a clean intuitive user interface** so I can **provide a polished product to the user that is easy to use.**
+
+Acceptance Criteria:
+
+1. The application is not intrusive and will have no pop ups
+2. The user interface is “clutter free” and will only show the information that is necessary.
+3. The application is modern and act as the user expects in most cases by adhering to best practices.
+
+As a **developer**, I want  to **establish a set of best practices in Android Development** so I can **provide a polished product to the user.**
+
+Acceptance Criteria:
+
+1. A list of resources is created with links and snippets from the programming community.
+
+
+### Use and Misuse case diagram
+![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Use%20and%20Misuse%20-%20Page%201.jpeg)
+
+
