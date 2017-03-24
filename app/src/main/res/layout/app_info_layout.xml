@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:id="@+id/name_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/appName"
+            android:paddingTop="30sp"
+            android:paddingBottom="30sp"
+            android:paddingLeft="5sp"
+            android:paddingStart="5sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/using_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/usingResourcesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5sp"
+            android:paddingStart="5sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:text="@string/usingResourcesLabel"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/usingResourcesContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/requested_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/requestedResourcesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/requestedResourcesLabel"
+            android:paddingLeft="5sp"
+            android:paddingStart="5sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/requestedResourcesContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp" />
+    </TableRow>
+
+</TableLayout>

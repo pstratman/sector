@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sector</string>
+    <string name="usingResourcesLabel">Using Resources: </string>
+    <string name="requestedResourcesLabel">Requested Resources: </string>
 </resources>
