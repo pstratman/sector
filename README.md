@@ -1,9 +1,9 @@
 # Sector
 ## An Android application for security monitoring and reporting.
 
-Mobile platforms have become commonplace in the lives of millions of people in the United States and abroad. This technology is evolving so quickly that it is sometimes difficult to track the new trends and products as they become available to consumers. As a Cyber Security professional, I have been trying to keep up with these trends and the security implications that they create. I have found the security concerns of applications from the app store the most troubling and ambiguous so far. All Android users have seen the familiar, “Application X needs access to the following items:” and then a long list of resources listed below on the phone and I know I’m not alone when I ask, “What the heck for?” 
+Mobile platforms have become commonplace in the lives of millions of people in the United States and abroad. This technology is evolving so quickly that it is sometimes difficult to track the new trends and products as they become available to consumers. In particular, the permissions requests from the applications on the app store are troubling and ambiguous in their generality. All Android users have seen the familiar, “Application X needs access to the following items:” and then a long list of resources listed below. The goal of Sector is to address the question "Why does Application X need access to that?"
 
-The goal of Sector is to flesh out what resources these applications are using in an attempt to shed some light on why they may need them. 
+Sector will address this question by fleshing out what resources these applications are using in an attempt to shed some light on why they may need them. 
 #### Sector will:
 * Show a list of the applications on the phone
 * Give details about what resources the applications are currently using
@@ -28,40 +28,41 @@ Sector is meant to be a monitoring application and will never be intrusive or bu
 
 ### Important User Stories
 
-#### As a **user**, I want to **view the applications on my android phone** so I can **monitor them in Sector.**
+#### As a **Sector user**, I want to **view the applications on my android phone** so I can **monitor them.**
 
 Acceptance Criteria:
 
 1. The application shows a list of the running applications on the phone.
 2. The application provides the description of the application from the operating system.
 
-As a **user**, I want to **view the resources allocated to the applications running on my Android phone** so I can **monitor them in Sector.**
+As a **Sector user**, I want to **view the resources allocated to the applications running on my Android phone** so I can **monitor them.**
 
 Acceptance Criteria:
 
 1. Each application in Sector can be selected.
 2. The selected application will provide further details about what resources the application is using.
 
-As a **user**, I want to **view the resources the applications originally requested** so I can **make comparisons with actual use in Sector. ** 
+As a **Sector user**, I want to **view the resources the applications originally requested** so I can **make comparisons with actual use. ** 
 
 Acceptance Criteria:
 
 1. Sector provides the original set of permissions associated with each application.
 2. This information is accessible from that applications information page
 
-As a **developer **, I want to **create a clean intuitive user interface** so I can **provide a polished product to the user that is easy to use.**
+As a **Sector user**, I need to be able to **click on a list view item** so I can **view detailed information about an application**
 
 Acceptance Criteria:
 
-1. The application is not intrusive and will have no pop ups
-2. The user interface is “clutter free” and will only show the information that is necessary.
-3. The application is modern and act as the user expects in most cases by adhering to best practices.
+1. The application has an onClick event listener that launches another activity.
+2. The new activity displays meta-data about an application.
 
-As a **developer**, I want  to **establish a set of best practices in Android Development** so I can **provide a polished product to the user.**
+As a **Sector user**, I need to be able to **refreash the list of applications** so I can **view the most up-to-date information about each application.**
 
 Acceptance Criteria:
 
-1. A list of resources is created with links and snippets from the programming community.
+1. Sector provides a method to refresh the information on the screen.
+2. This information is line with the current program patterns.
+3. The information is accurate and effecient.
 
 
 ### Use and Misuse case diagram
