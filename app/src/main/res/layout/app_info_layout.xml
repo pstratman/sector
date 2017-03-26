@@ -44,10 +44,20 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
         <TextView
             android:id="@+id/usingResourcesContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20sp"
+            android:paddingStart="20sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
             android:text=""
             android:textSize="14sp" />
     </TableRow>
@@ -72,10 +82,20 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
         <TextView
             android:id="@+id/requestedResourcesContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20sp"
+            android:paddingStart="20sp"
+            android:paddingRight="5sp"
+            android:paddingEnd="5sp"
             android:text=""
             android:textSize="14sp" />
     </TableRow>

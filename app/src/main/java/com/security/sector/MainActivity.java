@@ -43,23 +43,20 @@ public class MainActivity extends AppCompatActivity {
     private appInfo[] getFormattedAppList() {
         // Get application list
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        List<appInfo> tempNameList = new ArrayList<appInfo>();
+        List<appInfo> tempNameList = new ArrayList<>();
         for (ApplicationInfo packageInfo : packages) {
             String newName = (String) pm.getApplicationLabel(packageInfo);
             Drawable newIcon = pm.getApplicationIcon(packageInfo);
             String newPackageName = packageInfo.packageName;
 
-            if((packageInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-                tempNameList.add(new appInfo(newName, newIcon, newPackageName));
-                Log.d(TAG, "Adding: " + newName);
-                Log.d(TAG, "With package name: " + newPackageName);
-            } else if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+            // If it's a system app, just skip it.
+            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 continue;
-            } else {
-                tempNameList.add(new appInfo(newName, newIcon, newPackageName));
-                Log.d(TAG, "Adding: " + newName);
-                Log.d(TAG, "With package name: " + newPackageName);
             }
+            // Otherwise, add it to the list.
+            tempNameList.add(new appInfo(newName, newIcon, newPackageName));
+            Log.d(TAG, "Adding: " + newName);
+            Log.d(TAG, "With package name: " + newPackageName);
         }
         return tempNameList.toArray(new appInfo[tempNameList.size()]);
     }
