@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,18 +43,25 @@ public class MainActivity extends AppCompatActivity {
     private appInfo[] getFormattedAppList() {
         // Get application list
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        int index = 0;
-        appInfo[] tempNameList = new appInfo[packages.size()];
+        List<appInfo> tempNameList = new ArrayList<appInfo>();
         for (ApplicationInfo packageInfo : packages) {
             String newName = (String) pm.getApplicationLabel(packageInfo);
             Drawable newIcon = pm.getApplicationIcon(packageInfo);
             String newPackageName = packageInfo.packageName;
-            tempNameList[index] = new appInfo(newName, newIcon, newPackageName);
-            Log.d(TAG, "Adding: " + newName);
-            Log.d(TAG, "With package name: " + newPackageName);
-            index++;
+
+            if((packageInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
+                tempNameList.add(new appInfo(newName, newIcon, newPackageName));
+                Log.d(TAG, "Adding: " + newName);
+                Log.d(TAG, "With package name: " + newPackageName);
+            } else if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                continue;
+            } else {
+                tempNameList.add(new appInfo(newName, newIcon, newPackageName));
+                Log.d(TAG, "Adding: " + newName);
+                Log.d(TAG, "With package name: " + newPackageName);
+            }
         }
-        return tempNameList;
+        return tempNameList.toArray(new appInfo[tempNameList.size()]);
     }
 
 }
