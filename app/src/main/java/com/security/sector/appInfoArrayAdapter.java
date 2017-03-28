@@ -36,7 +36,7 @@ class appInfoArrayAdapter extends ArrayAdapter<appInfo> {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        mViewHolder.appName.setText(values[position].getAppName());
+        mViewHolder.appName.setText(values[position].appName);
         return convertView;
     }
 

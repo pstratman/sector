@@ -14,13 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    
-    PackageManager pm;
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        pm = getPackageManager();
         appInfo[] appNames = getFormattedAppList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -34,13 +30,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 Intent appInfoIntent = new Intent(MainActivity.this, appInfoActivity.class);
                 appInfoIntent.putExtra("selectedPackageName", (
-                        (appInfo) parent.getItemAtPosition(position)).getPackageName());
+                        (appInfo) parent.getItemAtPosition(position)).packageName);
                 startActivity(appInfoIntent);
             }
         });
     }
 
     private appInfo[] getFormattedAppList() {
+        PackageManager pm = getPackageManager();
         // Get application list
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         List<appInfo> tempNameList = new ArrayList<>();
@@ -55,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
             }
             // Otherwise, add it to the list.
             tempNameList.add(new appInfo(newName, newIcon, newPackageName));
-            Log.d(TAG, "Adding: " + newName);
-            Log.d(TAG, "With package name: " + newPackageName);
         }
         return tempNameList.toArray(new appInfo[tempNameList.size()]);
     }
