@@ -2,10 +2,8 @@ package com.security.sector;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         List<appInfo> tempNameList = new ArrayList<>();
         for (ApplicationInfo packageInfo : packages) {
             String newName = (String) pm.getApplicationLabel(packageInfo);
-            Drawable newIcon = pm.getApplicationIcon(packageInfo);
             String newPackageName = packageInfo.packageName;
 
             // If it's a system app, just skip it.
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 continue;
             }
             // Otherwise, add it to the list.
-            tempNameList.add(new appInfo(newName, newIcon, newPackageName));
+            tempNameList.add(new appInfo(newName, newPackageName));
         }
         return tempNameList.toArray(new appInfo[tempNameList.size()]);
     }

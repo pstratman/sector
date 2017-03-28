@@ -85,6 +85,7 @@ public class appInfoActivity extends AppCompatActivity {
             appName = (String) pm.getApplicationLabel(currentApp);
             String[] permissions = currentAppPackInfo.requestedPermissions;
             if (permissions != null) {
+                requestedPerms = "";
                 for (String permission : permissions) {
                     requestedPerms += permission + "\n";
                 }
@@ -122,6 +123,7 @@ public class appInfoActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             finish();
         }
+        System.gc();
         return super.onKeyDown(keyCode, event);
     }
 }
