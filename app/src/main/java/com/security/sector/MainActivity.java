@@ -13,14 +13,31 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    static appInfo[] appNames;
+    PackageManager pm;
+    static int listViewID = R.id.list_view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        appInfo[] appNames = getFormattedAppList();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        System.out.println("I'm in here!");
+        super.onStart();
+        pm = getPackageManager();
+        // Define the list of application names if you haven't already and then create the view.
+        if (appNames == null)
+            appNames = getFormattedAppList();
+        createListView();
+    }
+
+    public void createListView(){
+        ListView listView = (ListView) getView(listViewID);
         // Define and assign the adapter
         appInfoArrayAdapter adapter = new appInfoArrayAdapter(this, appNames);
-        ListView listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         // Define on click event listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -29,25 +46,28 @@ public class MainActivity extends AppCompatActivity {
                 Intent appInfoIntent = new Intent(MainActivity.this, appInfoActivity.class);
                 appInfoIntent.putExtra("selectedPackageName", (
                         (appInfo) parent.getItemAtPosition(position)).packageName);
+                appInfoIntent.setFlags(appInfoIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(appInfoIntent);
             }
         });
     }
 
-    private appInfo[] getFormattedAppList() {
-        PackageManager pm = getPackageManager();
+    public View getView(int id) {
+        return findViewById(id);
+    }
+
+    public appInfo[] getFormattedAppList() {
         // Get application list
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         List<appInfo> tempNameList = new ArrayList<>();
         for (ApplicationInfo packageInfo : packages) {
-            String newName = (String) pm.getApplicationLabel(packageInfo);
-            String newPackageName = packageInfo.packageName;
-
             // If it's a system app, just skip it.
             if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                 continue;
             }
             // Otherwise, add it to the list.
+            String newName = (String) pm.getApplicationLabel(packageInfo);
+            String newPackageName = packageInfo.packageName;
             tempNameList.add(new appInfo(newName, newPackageName));
         }
         return tempNameList.toArray(new appInfo[tempNameList.size()]);

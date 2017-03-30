@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -118,12 +117,16 @@ public class appInfoActivity extends AppCompatActivity {
 
     // Clean up the activity when you go back to the main activity.
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            finish();
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        pm = null;
+        am = null;
+        // - Other
+        runningAppProcessInfo = null;
+        packageName = null;
+        appName = null;
+        requestedPerms = null;
+        usingResources = null;
         System.gc();
-        return super.onKeyDown(keyCode, event);
     }
 }
