@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -68,7 +67,7 @@ public class appInfoActivity extends AppCompatActivity {
         return retString.toString();
     }
 
-    private List<String> doCommand(String command) {
+    public List<String> doCommand(String command) {
         Process proc;
         List<String> output = new ArrayList<>();
         try{
@@ -116,8 +115,7 @@ public class appInfoActivity extends AppCompatActivity {
         for (int i = 0; i < runningAppProcessInfo.size(); i++) {
             String runningProc = runningAppProcessInfo.get(i).processName;
             int runningProcID = runningAppProcessInfo.get(i).pid;
-            Log.d(TAG, runningProc + " is running.");
-            if (runningAppProcessInfo.get(i).processName.equals(packageName)) {
+            if (runningProc.equals(packageName)) {
                 PID = runningProcID;
                 break;
             }
