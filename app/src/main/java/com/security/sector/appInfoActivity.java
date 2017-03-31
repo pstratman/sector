@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -48,35 +49,43 @@ public class appInfoActivity extends AppCompatActivity {
         setTextViews();
     }
 
-    private String getUsing() {
+    public String getUsing() {
         String command = "ls -l /proc/" + PID + "/fd | sort";
-        StringBuilder output = new StringBuilder();
         List<String> sortList = new ArrayList<>();
+        List<String> output = doCommand(command);
+        StringBuilder retString = new StringBuilder();
+        for (String lineItem : output) {
+            String[] tempTokens = lineItem.split(" ");
+            if (tempTokens.length > 2) {
+                String addItem = tempTokens[tempTokens.length - 1];
+                sortList.add(addItem.trim());
+            }
+        }
+        Collections.sort(sortList.subList(1, sortList.size()));
+        for (String fd : sortList) {
+            retString.append(fd).append("\n");
+        }
+        return retString.toString();
+    }
+
+    private List<String> doCommand(String command) {
         Process proc;
+        List<String> output = new ArrayList<>();
         try{
             proc = Runtime.getRuntime().exec(command);
             proc.waitFor();
             BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null){
-                String[] tempSplit = line.split(" ");
-                if (tempSplit.length > 2) {
-                    String resourceToAdd = tempSplit[tempSplit.length - 1];
-                    sortList.add(resourceToAdd.trim());
-                }
-            }
-            Collections.sort(sortList.subList(1, sortList.size()));
-            for (String fd : sortList) {
-                output.append(fd).append("\n");
+                output.add(line);
             }
         } catch (Exception e){
             e.printStackTrace();
         }
-        return output.toString();
+        return output;
     }
 
-
-    private void setRequestedAndName() {
+    public void setRequestedAndName() {
         try {
             ApplicationInfo currentApp = pm.getApplicationInfo(packageName, 0);
             PackageInfo currentAppPackInfo = pm.getPackageInfo(packageName,
@@ -95,14 +104,14 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void setTextViews() {
+    public void setTextViews() {
         // Set textViews
         ((TextView) findViewById(R.id.appName)).setText(appName);
         ((TextView) findViewById(R.id.usingResourcesContent)).setText(usingResources);
         ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedPerms);
     }
 
-    private void setPID() {
+    public void setPID() {
         // Find the process ID of the package
         for (int i = 0; i < runningAppProcessInfo.size(); i++) {
             String runningProc = runningAppProcessInfo.get(i).processName;
