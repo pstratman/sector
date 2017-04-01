@@ -89,4 +89,25 @@ Acceptance Criteria:
 ## Architectural Diagram
 ![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Sector%20Architectural%20Diagram.png)
 
+#### MainActivity
+This is the activity that is launched when the application starts. It handles getting the list of packages from the package manager and sorting out the system level packages. This list of packages is then converted into a array of appInfo objects which have the package name and the application label as provided by the application manager. Finally, the array of appInfo objects is passed to a custom ListView ArrayAdapter called appInfoArrayAdapater that uses the Application label and a template to create the actual view. Every list view row has an onItemClick event set so that the package name is passed to the appInfoActivity.
+
+#### appInfoActivity
+This is the secondary information activity that is launched from the MainActivity when a ListView row is selected. The package name of the row is passed in as a parameter here and is used to get more infomration about the application.
+
+#### PackageManager
+The package manager is an android class that allows the application to retreive information about installed packages on the device. It is used throughout to gather information about installed applications.
+
+#### ApplicationManager
+The ApplicationManager is an android class that allows the application to get information about a running application.
+
+#### appInfo
+This is a very light class designed to hold two peices of information when setting up the appInfoArrayAdapater. This way the application label can be used to display the application name, and the application package name can be used for lookup later on.
+
+#### appInfoArrayAdapter
+appInfoArrayAdapter is a custom ListView ArrayAdapter that is used to pick out just the application label from the array of appInfo objects. When an item is clicked the stored packageName is returned instead of the application name.
+
+
+
+
 
