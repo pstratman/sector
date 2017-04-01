@@ -85,6 +85,7 @@ Acceptance Criteria:
 | Test Platform | No | Paul | A tablet or phone I don't care about that I can deploy to |
 | Inspiration and Teacherly Advice | Yes | Paul | In case I have questions about the project |
 
-
+## Architectural Diagram
+![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Sector%20Architectural%20Diagram.png)
 
 
