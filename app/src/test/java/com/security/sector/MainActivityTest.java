@@ -2,7 +2,6 @@ package com.security.sector;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -27,7 +26,6 @@ public class MainActivityTest {
 
     @Mock
     Context mockContext;
-
 
     @Before
     public void setup() {
@@ -97,24 +95,6 @@ public class MainActivityTest {
         Assert.assertTrue("Application List item 0's packageName should be what I expect",
                 actual[0].packageName.equals(expectedOutputSingle[0].packageName));
     }
-
-    //public void createListView(){
-      //  ListView listView = (ListView) getView(listViewID);
-        // Define and assign the adapter
-      //  appInfoArrayAdapter adapter = new appInfoArrayAdapter(this, appNames);
-      //  listView.setAdapter(adapter);
-        // Define on click event listener
-     //   listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-       //     @Override
-         //   public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-           //     Intent appInfoIntent = new Intent(MainActivity.this, appInfoActivity.class);
-             //   appInfoIntent.putExtra("selectedPackageName", (
-               //         (appInfo) parent.getItemAtPosition(position)).packageName);
-                //appInfoIntent.setFlags(appInfoIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
-                //startActivity(appInfoIntent);
-           // }
-        //});
-   // }
 
     @Test
     public void shouldCreateTheListView() {

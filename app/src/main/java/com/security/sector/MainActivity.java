@@ -11,19 +11,36 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * MainActivity()
+ * This is the activity that is run when Sector is started. It sets up the List of installed
+ * applications and allows for the creation of the appInfoActivity by event.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    appInfo[] appNames;
-    PackageManager pm;
-    static int listViewID = R.id.list_view;
-    ListView listView;
+    appInfo[] appNames;                      // The list of non-system applications on the device
+    PackageManager pm;                       // The package manager
+    static int listViewID = R.id.list_view;  // The Layout ID of the ListView.
+    ListView listView;                       // The actual ListView object.
 
+    /**
+     * onCreate()
+     * This method is called when the activity is created. It associates the activity with
+     * the layout activity_main.
+     * @param savedInstanceState - The saved state of the activity, the state of sector isn't saved,
+     *                           but this variable is required.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * onStart()
+     * This method is called directly after the onCreate method. In MainActivity, this method
+     * instantiates our variables if necessary and then calls the method to create the list view.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -34,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         createListView();
     }
 
+    /**
+     * createListView()
+     * This method creates the ListView for MainActivity and assigns it an adapter and an
+     * onItemClickLister which is used to start the appInfoActivity.
+     */
     public void createListView(){
         listView = (ListView) getView(listViewID);
         // Define and assign the adapter
@@ -52,10 +74,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * getView()
+     * @param id - The layout ID of the view that we want to get.
+     * @return (View) - the view that was found by the findViewByID builtin method.
+     */
     public View getView(int id) {
         return findViewById(id);
     }
 
+    /**
+     * getFormattedAppList()
+     * This method is used to create the array of appInfo objects that is used by the
+     * appInfoArrayAdapter in the ListView. The method gets the list of installed applications and
+     * filters out the system applications.
+     * @return (appInfo[]) - the array of appInfo objects created in the method.
+     */
     public appInfo[] getFormattedAppList() {
         // Get application list
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);

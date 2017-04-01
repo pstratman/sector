@@ -15,20 +15,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * appInfoActivity()
+ * This is the second activity that is only ever launched from the MainActivity. It fills out the
+ * requested permissions and the open file descriptors.
+ */
 public class appInfoActivity extends AppCompatActivity {
 
-    // Get managers
-    PackageManager pm;
-    ActivityManager am;
-    List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfo;
+    PackageManager pm;   // The Package Manager
+    ActivityManager am;  // The Activity Manager
+    List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfo; // The list of running apps
 
-    private static final String TAG = "appInfoActivity";
-    String packageName;
-    String appName;
-    String requestedPerms = "No requested permissions on file.";
-    String usingResources = "PID not found running on device.";
-    int PID = 0;
+    private static final String TAG = "appInfoActivity"; // A debug tag used to log error information
+    String packageName; // The package name of the target application
+    String appName;     // The display name of the target application
+    String requestedPerms = "No requested permissions on file."; // The default value of the requested permissions
+    String usingResources = "PID not found running on device.";  // The default value of the apps open fd's
+    int PID = 0; // The process identifier for the targeted application
 
+    /**
+     * onCreate()
+     * This method is called when the activity is created. It associates the activity with
+     * the layout activity_main.
+     * @param savedInstanceState - The saved state of the activity, the state of sector isn't saved,
+     *                           but this variable is required.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Instantiate managers
@@ -47,6 +58,12 @@ public class appInfoActivity extends AppCompatActivity {
         setTextViews();
     }
 
+    /**
+     * getUsing()
+     * This method sets up the command which is used to get the open file descriptors and handles
+     * the system call's output.
+     * @return (String) - The list of open file descriptors for a particular PID
+     */
     public String getUsing() {
         String command = "ls -l /proc/" + PID + "/fd | sort";
         List<String> sortList = new ArrayList<>();
@@ -66,6 +83,12 @@ public class appInfoActivity extends AppCompatActivity {
         return retString.toString();
     }
 
+    /**
+     * doCommand()
+     * This method handles making the system call and returning the output.
+     * @param command - the Command to execute on the device.
+     * @return (List) - The output as a list of strings
+     */
     public List<String> doCommand(String command) {
         Process proc;
         List<String> output = new ArrayList<>();
@@ -83,6 +106,11 @@ public class appInfoActivity extends AppCompatActivity {
         return output;
     }
 
+    /**
+     * setRequestedAndName()
+     * This method sets the requested resources and appName strings by getting the information from
+     * the PackageManager.
+     */
     public void setRequestedAndName() {
         try {
             ApplicationInfo currentApp = pm.getApplicationInfo(packageName, 0);
@@ -102,6 +130,10 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * setTextViews()
+     * This method sets the text on the three TextView's based on what the activity has.
+     */
     public void setTextViews() {
         // Set textViews
         ((TextView) findViewById(R.id.appName)).setText(appName);
@@ -109,6 +141,10 @@ public class appInfoActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedPerms);
     }
 
+    /**
+     * setPID()
+     * This method gets the process ID for the target application if it can.
+     */
     public void setPID() {
         // Find the process ID of the package
         for (int i = 0; i < runningAppProcessInfo.size(); i++) {
@@ -121,7 +157,11 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
-    // Clean up the activity when you go back to the main activity.
+    /**
+     * onDestroy()
+     * This method does the activity cleanup when the user navigates away from it. This is a
+     * recommended practice to save on the amount of memory an application needs to run.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
