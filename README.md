@@ -6,7 +6,7 @@
 	- [Application Requirements](#application-requirements)
 	- [Use and Misuse case diagram](#use-and-misuse-case-diagram)
 	- [Resources Required](#resources-required)
-	- [Architectural Diagram](#Architectural-Diagram)
+	- [Architectural Diagram](#architectural-diagram)
 
 # Sector
 ## An Android application for security monitoring and reporting.
