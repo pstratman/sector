@@ -7,6 +7,7 @@
 	- [Use and Misuse case diagram](#use-and-misuse-case-diagram)
 	- [Resources Required](#resources-required)
 	- [Architectural Diagram](#architectural-diagram)
+	- [Activity Diagrams](#activity-diagrams)
 
 # Sector
 ## An Android application for security monitoring and reporting.
@@ -116,5 +117,7 @@ The TextView is an android class that represents a particular view in the applic
 #### ListView
 The ListView is an android class that represents a particular view in the application. 
 
-
+## Activity Diagrams
+#### As a **Sector user**, I want to **view the applications on my android phone** so I can **monitor them.**
+![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Activity%20Diagram%20-%20US20.png)
 
