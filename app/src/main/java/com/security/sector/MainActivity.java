@@ -13,9 +13,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    static appInfo[] appNames;
+    appInfo[] appNames;
     PackageManager pm;
     static int listViewID = R.id.list_view;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        System.out.println("I'm in here!");
         super.onStart();
         pm = getPackageManager();
         // Define the list of application names if you haven't already and then create the view.
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createListView(){
-        ListView listView = (ListView) getView(listViewID);
+        listView = (ListView) getView(listViewID);
         // Define and assign the adapter
         appInfoArrayAdapter adapter = new appInfoArrayAdapter(this, appNames);
         listView.setAdapter(adapter);

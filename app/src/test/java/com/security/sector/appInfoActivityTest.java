@@ -35,9 +35,11 @@ public class appInfoActivityTest {
         String out1 = "lr-x------ 1 u0_a72 u0_a72 64 2017-03-30 20:31 40 -> /data/app/com.security.sector-2/split_lib_slice_6_apk.apk";
         String out2 = "lr-x------ 1 u0_a72 u0_a72 64 2017-03-30 20:31 41 -> /data/app/com.security.sector-2/split_lib_slice_7_apk.apk";
         String out3 = "lrwx------ 1 u0_a72 u0_a72 64 2017-03-30 20:31 27 -> socket:[27665]";
+        String out4 = "length 0";
         mockCommandOutput.add(out1);
         mockCommandOutput.add(out2);
         mockCommandOutput.add(out3);
+        mockCommandOutput.add(out4);
 
         String str1 = "/data/app/com.security.sector-2/split_lib_slice_6_apk.apk";
         String str2 = "/data/app/com.security.sector-2/split_lib_slice_7_apk.apk";

@@ -2,6 +2,10 @@ package com.security.sector;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -92,6 +96,41 @@ public class MainActivityTest {
                 actual[0].appName.equals(expectedOutputSingle[0].appName));
         Assert.assertTrue("Application List item 0's packageName should be what I expect",
                 actual[0].packageName.equals(expectedOutputSingle[0].packageName));
+    }
+
+    //public void createListView(){
+      //  ListView listView = (ListView) getView(listViewID);
+        // Define and assign the adapter
+      //  appInfoArrayAdapter adapter = new appInfoArrayAdapter(this, appNames);
+      //  listView.setAdapter(adapter);
+        // Define on click event listener
+     //   listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       //     @Override
+         //   public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+           //     Intent appInfoIntent = new Intent(MainActivity.this, appInfoActivity.class);
+             //   appInfoIntent.putExtra("selectedPackageName", (
+               //         (appInfo) parent.getItemAtPosition(position)).packageName);
+                //appInfoIntent.setFlags(appInfoIntent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //startActivity(appInfoIntent);
+           // }
+        //});
+   // }
+
+    @Test
+    public void shouldCreateTheListView() {
+        MainActivity mockMainSpy = Mockito.spy(new MainActivity());
+        ListView mockListView = Mockito.mock(ListView.class);
+        Mockito.doReturn(mockListView).when(mockMainSpy).findViewById(Mockito.anyInt());
+        mockMainSpy.appNames = expectedOutputAll;
+
+        mockMainSpy.createListView();
+        Mockito.verify(mockListView, Mockito.times(1))
+                .setAdapter(Mockito.any(appInfoArrayAdapter.class));
+        Mockito.verify(mockListView, Mockito.times(1))
+                .setOnItemClickListener(Mockito.any(AdapterView.OnItemClickListener.class));
+
+        mockListView.performClick();
+
     }
 
 }
