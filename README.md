@@ -1,3 +1,16 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Sector](#)
+	- [An Android application for security monitoring and reporting.](#)
+			- [Sector will:](#)
+	- [Project Timeline](#)
+	- [Risk List](#)
+	- [Application Requirements](#)
+		- [Important User Stories](#)
+			- [As a Sector user, I want to view the applications on my android phone so I can monitor them.](#)
+		- [Use and Misuse case diagram](#)
+	- [Resources Required](#)
+
 # Sector
 ## An Android application for security monitoring and reporting.
 
