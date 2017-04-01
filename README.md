@@ -1,15 +1,11 @@
 **Table of Contents**
 
-- [Sector](#)
+- [Sector](#sector)
 	- [An Android application for security monitoring and reporting.](#)
-			- [Sector will:](#)
-	- [Project Timeline](#)
-	- [Risk List](#)
-	- [Application Requirements](#)
-		- [Important User Stories](#)
-			- [As a Sector user, I want to view the applications on my android phone so I can monitor them.](#)
-		- [Use and Misuse case diagram](#)
-	- [Resources Required](#)
+	- [Project Timeline](#project-timeline)
+	- [Risk List](#risk-list)
+	- [Application Requirements](#application-requirements)
+	- [Resources Required](#resources-required)
 
 # Sector
 ## An Android application for security monitoring and reporting.
