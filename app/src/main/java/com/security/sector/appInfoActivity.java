@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -55,6 +56,7 @@ public class appInfoActivity extends AppCompatActivity {
         setPID();
         if (PID != 0)
             usingResources = getUsing();
+        setupTabViews();
         setTextViews();
     }
 
@@ -130,15 +132,38 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * setTextViews()
-     * This method sets the text on the three TextView's based on what the activity has.
-     */
     public void setTextViews() {
         // Set textViews
         ((TextView) findViewById(R.id.appName)).setText(appName);
         ((TextView) findViewById(R.id.usingResourcesContent)).setText(usingResources);
         ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedPerms);
+    }
+
+    /**
+     *
+     *
+     */
+    public void setupTabViews() {
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHostMain);
+        tabHost.setup();
+
+        // Tab 1
+        TabHost.TabSpec usingTab = tabHost.newTabSpec("Used Resources");
+        usingTab.setContent(R.id.tab1);
+        usingTab.setIndicator("Used Resources");
+        tabHost.addTab(usingTab);
+
+        // Tab 2
+        TabHost.TabSpec requestedTab = tabHost.newTabSpec("Requested Resources");
+        requestedTab.setContent(R.id.tab2);
+        requestedTab.setIndicator("Requested Resources");
+        tabHost.addTab(requestedTab);
+
+        // Tab 3
+        TabHost.TabSpec additionalInfoTab = tabHost.newTabSpec("Additional Info");
+        additionalInfoTab.setContent(R.id.tab3);
+        additionalInfoTab.setIndicator("Additional Info");
+        tabHost.addTab(additionalInfoTab);
     }
 
     /**
