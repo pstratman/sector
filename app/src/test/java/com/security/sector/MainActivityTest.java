@@ -68,6 +68,52 @@ public class MainActivityTest {
     }
 
     @Test
+    public void shouldSortTheApplicationInfoList() {
+        final PackageManager mockManager = Mockito.mock(PackageManager.class);
+        final ApplicationInfo testPackage1 = new ApplicationInfo();
+        final ApplicationInfo testPackage2 = new ApplicationInfo();
+        final ApplicationInfo testPackage3 = new ApplicationInfo();
+        testPackage1.packageName = "Package1";
+        testPackage1.flags = 0;
+        testPackage2.packageName = "Package2";
+        testPackage2.flags = 0;
+        testPackage3.packageName = "Package3";
+        testPackage3.flags = 0;
+        List<ApplicationInfo> testApplicationList = new ArrayList<>();
+        testApplicationList.add(testPackage1);
+        testApplicationList.add(testPackage2);
+        testApplicationList.add(testPackage3);
+
+        mockMain.pm = mockManager;
+        Mockito.when(mockMain.pm.getInstalledApplications(PackageManager.GET_META_DATA))
+                .thenReturn(testApplicationList);
+
+        Mockito.when(mockMain.pm.getApplicationLabel(testPackage1))
+                .thenReturn("Package - C");
+        Mockito.when(mockMain.pm.getApplicationLabel(testPackage2))
+                .thenReturn("Package - B");
+        Mockito.when(mockMain.pm.getApplicationLabel(testPackage3))
+                .thenReturn("Package - A");
+
+        appInfo[] actual = mockMain.getFormattedAppList();
+
+        Assert.assertTrue("The first package should be Package - A",
+                actual[0].appName.equals("Package - A"));
+        Assert.assertTrue("The first package should have the correct packageName after sorting",
+                actual[0].packageName.equals("Package3"));
+
+        Assert.assertTrue("The second package should be Package - B",
+                actual[1].appName.equals("Package - B"));
+        Assert.assertTrue("The first package should have the correct packageName after sorting",
+                actual[1].packageName.equals("Package2"));
+
+        Assert.assertTrue("The third package should be Package - C",
+                actual[2].appName.equals("Package - C"));
+        Assert.assertTrue("The first package should have the correct packageName after sorting",
+                actual[2].packageName.equals("Package1"));
+    }
+
+    @Test
     public void shouldIgnoreSystemPackages(){
         final PackageManager mockManager = Mockito.mock(PackageManager.class);
         final ApplicationInfo testPackage1 = new ApplicationInfo();

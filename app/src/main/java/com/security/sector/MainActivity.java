@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -103,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
             String newName = (String) pm.getApplicationLabel(packageInfo);
             String newPackageName = packageInfo.packageName;
             tempNameList.add(new appInfo(newName, newPackageName));
+            if (tempNameList.size() > 0) {
+                Collections.sort(tempNameList, new Comparator<appInfo>() {
+                    @Override
+                    public int compare(appInfo o1, appInfo o2) {
+                        return o1.appName.compareTo(o2.appName);
+                    }
+                });
+            }
         }
         return tempNameList.toArray(new appInfo[tempNameList.size()]);
     }
