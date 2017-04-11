@@ -84,7 +84,7 @@ public class appInfoActivityTest {
         } catch (Exception e) {
 
         }
-        mockActivity.setRequestedAndName();
+        mockActivity.gatherApplicationInfo();
 
         Assert.assertTrue("Should configure the permissions if they exist",
                 expectedPerms.equals(mockActivity.requestedPerms));
@@ -102,7 +102,7 @@ public class appInfoActivityTest {
         PackageInfo mockPackInfoObj = Mockito.mock(PackageInfo.class);
         mockPackInfoObj.requestedPermissions = null;
         mockActivity.pm = mockManager;
-        String expectedPerms = "No requested permissions on file.";
+        String expectedPerms = "No requested permissions listed in application manifest.";
         try {
             Mockito.doReturn(mockAppInfoObj).when(mockManager)
                     .getApplicationInfo(mockActivity.packageName, 0);
@@ -112,7 +112,7 @@ public class appInfoActivityTest {
         } catch (Exception e) {
 
         }
-        mockActivity.setRequestedAndName();
+        mockActivity.gatherApplicationInfo();
 
         Assert.assertTrue("Should leave the permissions tag if they don't exist",
                 expectedPerms.equals(mockActivity.requestedPerms));

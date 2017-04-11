@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Sector</string>
-    <string name="usingResourcesLabel">Using Resources: </string>
-    <string name="requestedResourcesLabel">Requested Resources: </string>
+    <string name="version_information">Version Information:</string>
+    <string name="version_code_label">Version Code:</string>
+    <string name="version_name_label">Version Name:</string>
+    <string name="update_info_label">Application Update Information:</string>
+    <string name="first_install_label">Installed On:</string>
+    <string name="last_update_label">Last Updated:</string>
 </resources>

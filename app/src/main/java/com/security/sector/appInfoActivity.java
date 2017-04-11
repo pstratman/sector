@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,9 +32,15 @@ public class appInfoActivity extends AppCompatActivity {
     private static final String TAG = "appInfoActivity"; // A debug tag used to log error information
     String packageName; // The package name of the target application
     String appName;     // The display name of the target application
-    String requestedPerms = "No requested permissions on file."; // The default value of the requested permissions
+    String requestedPerms = "No requested resources listed in application manifest."; // The default value of the requested permissions
     String usingResources = "PID not found running on device.";  // The default value of the apps open fd's
     int PID = 0; // The process identifier for the targeted application
+    int applicationKernUID = 0;
+    int versionCode = 0;
+    String versionName = "No current version name found.";
+    Date installedDate;
+    Date updatedDate;
+    int appUID = -1;
 
     /**
      * onCreate()
@@ -52,7 +60,8 @@ public class appInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_info_layout);
         packageName = bundle.getString("selectedPackageName");
-        setRequestedAndName();
+
+        gatherApplicationInfo();
         setPID();
         if (PID != 0)
             usingResources = getUsing();
@@ -113,17 +122,29 @@ public class appInfoActivity extends AppCompatActivity {
      * This method sets the requested resources and appName strings by getting the information from
      * the PackageManager.
      */
-    public void setRequestedAndName() {
+    public void gatherApplicationInfo() {
         try {
             ApplicationInfo currentApp = pm.getApplicationInfo(packageName, 0);
+            appUID = currentApp.uid;
+            applicationKernUID = currentApp.uid;
             PackageInfo currentAppPackInfo = pm.getPackageInfo(packageName,
                     PackageManager.GET_PERMISSIONS);
+            versionCode = currentAppPackInfo.versionCode;
+            versionName = currentAppPackInfo.versionName;
+            installedDate = new Date(currentAppPackInfo.firstInstallTime * 1000);
+            updatedDate = new Date(currentAppPackInfo.lastUpdateTime * 1000);
             appName = (String) pm.getApplicationLabel(currentApp);
-            String[] permissions = currentAppPackInfo.requestedPermissions;
-            if (permissions != null) {
+            String[] requestedPermissions = currentAppPackInfo.requestedPermissions;
+            PermissionInfo[] permissions = currentAppPackInfo.permissions;
+            if (requestedPermissions != null) {
                 requestedPerms = "";
-                for (String permission : permissions) {
+                for (String permission : requestedPermissions) {
                     requestedPerms += permission + "\n";
+                }
+            }
+            if (permissions != null){
+                for (PermissionInfo permission : permissions) {
+                    requestedPerms += permission.loadDescription(pm);
                 }
             }
         }
@@ -137,6 +158,25 @@ public class appInfoActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.appName)).setText(appName);
         ((TextView) findViewById(R.id.usingResourcesContent)).setText(usingResources);
         ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedPerms);
+
+        String appUIDDisplay = "Application runtime UID:      " + appUID;
+        ((TextView) findViewById(R.id.application_uid_label)).setText(appUIDDisplay);
+
+        // Version Info
+        String versionCodeInfo = getString(R.string.version_code_label) +
+                "          " + String.valueOf(versionCode);
+        String versionNameInfo = getString(R.string.version_name_label) +
+                "         " + versionName;
+        ((TextView) findViewById(R.id.versionCodeLabel)).setText(String.valueOf(versionCodeInfo));
+        ((TextView) findViewById(R.id.versionNameLabel)).setText(versionNameInfo);
+
+        // Installation Info
+        String firstInstDisplay = getString(R.string.first_install_label) +
+                "       " + installedDate.toString();
+        String lastUpdateDisplay = getString(R.string.last_update_label) +
+                "    " + updatedDate.toString();
+        ((TextView) findViewById(R.id.firstInstallLabel)).setText(firstInstDisplay);
+        ((TextView) findViewById(R.id.lastUpdateLabel)).setText(lastUpdateDisplay);
     }
 
     /**

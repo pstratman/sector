@@ -81,7 +81,98 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TableRow
+                            android:paddingTop="20sp" >
+                            <TextView
+                                android:id="@+id/application_uid_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow
+                            android:paddingTop="20sp" >
+                            <TextView
+                                android:id="@+id/versionInfoLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:textColor="@android:color/black"
+                                android:text="@string/version_information"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/versionCodeLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/versionNameLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow
+                            android:paddingTop="20sp" >
+                            <TextView
+                                android:id="@+id/updateInfoLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:text="@string/update_info_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/firstInstallLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/lastUpdateLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:textSize="14sp" />
+                        </TableRow>
+                    </TableLayout>
                 </ScrollView>
             </FrameLayout>
         </LinearLayout>
