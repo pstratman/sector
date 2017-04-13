@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -149,7 +148,8 @@ public class appInfoActivity extends AppCompatActivity {
             }
         }
         catch (PackageManager.NameNotFoundException e) {
-            Log.d(TAG, "I was Unable to find the package " + packageName);
+            requestedPerms = "Unable to find application package on device";
+            usingResources = "Unable to find application package on device";
         }
     }
 
