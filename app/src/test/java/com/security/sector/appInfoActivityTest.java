@@ -1,10 +1,15 @@
 package com.security.sector;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.view.View;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import org.junit.Assert;
@@ -17,7 +22,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @RunWith(MockitoJUnitRunner.class)
 public class appInfoActivityTest {
@@ -87,7 +94,7 @@ public class appInfoActivityTest {
         mockActivity.gatherApplicationInfo();
 
         Assert.assertTrue("Should configure the permissions if they exist",
-                expectedPerms.equals(mockActivity.requestedPerms));
+                expectedPerms.equals(mockActivity.requestedUsesPerms));
         Assert.assertTrue("Should have set the appName",
                 mockActivity.appName.equals(appName));
 
@@ -115,7 +122,7 @@ public class appInfoActivityTest {
         mockActivity.gatherApplicationInfo();
 
         Assert.assertTrue("Should leave the permissions tag if they don't exist",
-                expectedPerms.equals(mockActivity.requestedPerms));
+                expectedPerms.equals(mockActivity.requestedUsesPerms));
         Assert.assertTrue("Should have set the appName",
                 mockActivity.appName.equals(appName));
 
@@ -126,8 +133,15 @@ public class appInfoActivityTest {
         appInfoActivity mockActivitySpy = Mockito.spy(new appInfoActivity());
         TextView mockTextView = Mockito.mock(TextView.class);
         Mockito.doReturn(mockTextView).when(mockActivitySpy).findViewById(Mockito.anyInt());
+        Mockito.doReturn("").when(mockActivitySpy).getString(Mockito.anyInt());
+        Date mockDate = Mockito.mock(Date.class);
+        mockActivitySpy.versionName = "1.0.0";
+        mockActivitySpy.versionCode = 1;
+        mockActivitySpy.installedDate = mockDate;
+        mockActivitySpy.updatedDate = mockDate;
+        Mockito.when(mockDate.toString()).thenReturn("");
         mockActivitySpy.setTextViews();
-        Mockito.verify(mockActivitySpy, Mockito.times(3)).findViewById(Mockito.anyInt());
+        Mockito.verify(mockActivitySpy, Mockito.times(11)).findViewById(Mockito.anyInt());
     }
 
     @Test
@@ -153,4 +167,18 @@ public class appInfoActivityTest {
         Assert.assertTrue("Sector should set the process id by appName", mockActivity.PID == mockRunningProc2.pid);
 
     }
+
+    @Test
+    public void shouldSetTabViews() {
+        appInfoActivity mockActivitySpy = Mockito.spy(new appInfoActivity());
+        TabHost mockTabHost = Mockito.mock(TabHost.class);
+        TabHost.TabSpec mockTabSpec = Mockito.mock(TabHost.TabSpec.class);
+
+        Mockito.doReturn(mockTabHost).when(mockActivitySpy).findViewById(Mockito.anyInt());
+        Mockito.when(mockTabHost.newTabSpec(Mockito.anyString())).thenReturn(mockTabSpec);
+
+        mockActivitySpy.setupTabViews();
+        Mockito.verify(mockTabHost, Mockito.times(3)).addTab(Mockito.any(TabHost.TabSpec.class));
+    }
+
 }

@@ -36,13 +36,13 @@ public class appInfoActivity extends AppCompatActivity {
     String requestedUsesPerms = "";
     String openFDs = "PID not found running on device.";  // The default value of the apps open fd's
     int PID = 0; // The process identifier for the targeted application
-    int versionCode = 0;
-    String versionName = "";
-    Date installedDate;
-    Date updatedDate;
-    int appUID = -1;
-    String packageSigHash;
-    String sharedLibFiles;
+    int versionCode = 0; // The version code of the application or 0 if not defined.
+    String versionName = ""; // The version name of the application if defined in the manifest.
+    Date installedDate; // The Date that the application was installed on the device.
+    Date updatedDate; // The Date that the application was last updated on the device.
+    int appUID = -1; // The user ID that the application runs under.
+    String packageSigHash; // The signature hash or hashes for the package
+    String sharedLibFiles; // The shared library files for the package if any.
 
     /**
      * onCreate()
@@ -182,11 +182,17 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * setPackageSigHash()
+     * This method gets the package hash information from the package manager and sets the class
+     * variable with that information if it can.
+     */
     public void setPackageSigHash() {
         try {
             @SuppressLint("PackageManagerGetSignatures")
             Signature[] currentPackageSigs = pm.getPackageInfo(
                     packageName, PackageManager.GET_SIGNATURES).signatures;
+
             for (Signature sig : currentPackageSigs) {
                 packageSigHash += sig.hashCode() + "\n";
             }
@@ -195,6 +201,11 @@ public class appInfoActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * setTextViews()
+     * This method sets all the text that is displayed in the test views on the additional
+     * information tab.
+     */
     public void setTextViews() {
         // Set app name
         ((TextView) findViewById(R.id.appName)).setText(appName);
@@ -232,8 +243,8 @@ public class appInfoActivity extends AppCompatActivity {
     }
 
     /**
-     *
-     *
+     * setupTabViews()
+     * This method sets up the Tab host on the activity and adds our tabs to it.
      */
     public void setupTabViews() {
         TabHost tabHost = (TabHost) findViewById(R.id.tabHostMain);
