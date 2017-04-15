@@ -30,8 +30,8 @@ public class appInfoActivity extends AppCompatActivity {
     ActivityManager am;  // The Activity Manager
     List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfo; // The list of running apps
 
-    String packageName; // The package name of the target application
-    String appName;     // The display name of the target application
+    String packageName = ""; // The package name of the target application
+    String appName = "";     // The display name of the target application
     String requestedPerms = ""; // The default value of the requested permissions
     String requestedUsesPerms = "";
     String openFDs = "PID not found running on device.";  // The default value of the apps open fd's
@@ -41,8 +41,8 @@ public class appInfoActivity extends AppCompatActivity {
     Date installedDate; // The Date that the application was installed on the device.
     Date updatedDate; // The Date that the application was last updated on the device.
     int appUID = -1; // The user ID that the application runs under.
-    String packageSigHash; // The signature hash or hashes for the package
-    String sharedLibFiles; // The shared library files for the package if any.
+    String packageSigHash = ""; // The signature hash or hashes for the package
+    String sharedLibFiles = ""; // The shared library files for the package if any.
 
     /**
      * onCreate()
@@ -53,16 +53,19 @@ public class appInfoActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getIntent().getExtras();
+        setContentView(R.layout.app_info_layout);
+        packageName = bundle.getString("selectedPackageName");
+        doInstantiate();
+    }
+
+    public void doInstantiate() {
         // Instantiate managers
         pm = getPackageManager();
         am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         runningAppProcessInfo = am.getRunningAppProcesses();
-
-        Bundle bundle = getIntent().getExtras();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.app_info_layout);
-        packageName = bundle.getString("selectedPackageName");
-
+        appName = packageName;
         gatherApplicationInfo();
         setPackageSigHash();
         setPID();
@@ -178,7 +181,9 @@ public class appInfoActivity extends AppCompatActivity {
         }
         catch (PackageManager.NameNotFoundException e) {
             requestedPerms = "Unable to find application package on device";
+            requestedUsesPerms = "Unable to find application package on device";
             openFDs = "Unable to find application package on device";
+            sharedLibFiles = "Unable to find application package on device";
         }
     }
 
