@@ -1,10 +1,12 @@
 package com.security.sector;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
@@ -28,18 +30,19 @@ public class appInfoActivity extends AppCompatActivity {
     ActivityManager am;  // The Activity Manager
     List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfo; // The list of running apps
 
-    private static final String TAG = "appInfoActivity"; // A debug tag used to log error information
     String packageName; // The package name of the target application
     String appName;     // The display name of the target application
-    String requestedPerms = "No requested resources listed in application manifest."; // The default value of the requested permissions
-    String usingResources = "PID not found running on device.";  // The default value of the apps open fd's
+    String requestedPerms = ""; // The default value of the requested permissions
+    String requestedUsesPerms = "";
+    String openFDs = "PID not found running on device.";  // The default value of the apps open fd's
     int PID = 0; // The process identifier for the targeted application
-    int applicationKernUID = 0;
     int versionCode = 0;
-    String versionName = "No current version name found.";
+    String versionName = "";
     Date installedDate;
     Date updatedDate;
     int appUID = -1;
+    String packageSigHash;
+    String sharedLibFiles;
 
     /**
      * onCreate()
@@ -61,9 +64,10 @@ public class appInfoActivity extends AppCompatActivity {
         packageName = bundle.getString("selectedPackageName");
 
         gatherApplicationInfo();
+        setPackageSigHash();
         setPID();
         if (PID != 0)
-            usingResources = getUsing();
+            openFDs = getUsing();
         setupTabViews();
         setTextViews();
     }
@@ -79,16 +83,18 @@ public class appInfoActivity extends AppCompatActivity {
         List<String> sortList = new ArrayList<>();
         List<String> output = doCommand(command);
         StringBuilder retString = new StringBuilder();
-        for (String lineItem : output) {
-            String[] tempTokens = lineItem.split(" ");
-            if (tempTokens.length > 2) {
-                String addItem = tempTokens[tempTokens.length - 1];
-                sortList.add(addItem.trim());
+        if (output.size() != 0) {
+            for (String lineItem : output) {
+                String[] tempTokens = lineItem.split(" ");
+                if (tempTokens.length > 2) {
+                    String addItem = tempTokens[tempTokens.length - 1];
+                    sortList.add(addItem.trim());
+                }
             }
-        }
-        Collections.sort(sortList.subList(1, sortList.size()));
-        for (String fd : sortList) {
-            retString.append(fd).append("\n");
+            Collections.sort(sortList.subList(1, sortList.size()));
+            for (String fd : sortList) {
+                retString.append(fd).append("\n");
+            }
         }
         return retString.toString();
     }
@@ -111,7 +117,8 @@ public class appInfoActivity extends AppCompatActivity {
                 output.add(line);
             }
         } catch (Exception e){
-            e.printStackTrace();
+            if (e.toString().contains("SELinux"))
+                openFDs = "You do not have permissions to view this information";
         }
         return output;
     }
@@ -123,50 +130,92 @@ public class appInfoActivity extends AppCompatActivity {
      */
     public void gatherApplicationInfo() {
         try {
+            // Get App Info
             ApplicationInfo currentApp = pm.getApplicationInfo(packageName, 0);
+            // Get shared libs
+            String[] libFiles = currentApp.sharedLibraryFiles;
+            if (libFiles != null) {
+                for (String libFile : libFiles) {
+                    sharedLibFiles += libFile + "\n";
+                }
+            } else {
+                sharedLibFiles = "No shared library files found for package";
+            }
+            // Set UID and app name
             appUID = currentApp.uid;
-            applicationKernUID = currentApp.uid;
+            appName = (String) pm.getApplicationLabel(currentApp);
+
+            // Get Pack info
             PackageInfo currentAppPackInfo = pm.getPackageInfo(packageName,
                     PackageManager.GET_PERMISSIONS);
+            // Set version info
             versionCode = currentAppPackInfo.versionCode;
             versionName = currentAppPackInfo.versionName;
+            if (versionName == null)
+                versionName = "No version name found.";
+            // Set installation/update info
             installedDate = new Date(currentAppPackInfo.firstInstallTime * 1000);
             updatedDate = new Date(currentAppPackInfo.lastUpdateTime * 1000);
-            appName = (String) pm.getApplicationLabel(currentApp);
+            // Get and set requested permissions from manifest
             String[] requestedPermissions = currentAppPackInfo.requestedPermissions;
-            PermissionInfo[] permissions = currentAppPackInfo.permissions;
             if (requestedPermissions != null) {
-                requestedPerms = "";
                 for (String permission : requestedPermissions) {
-                    requestedPerms += permission + "\n";
+                    if (permission != null)
+                        requestedUsesPerms += permission + "\n";
                 }
+            } else {
+                requestedUsesPerms = "No requested permissions listed in application manifest.";
             }
+            PermissionInfo[] permissions = currentAppPackInfo.permissions;
             if (permissions != null){
                 for (PermissionInfo permission : permissions) {
-                    requestedPerms += permission.loadDescription(pm);
+                    if (permission != null)
+                        requestedPerms += permission.loadDescription(pm);
                 }
+            } else {
+                requestedPerms = "No other permissions listed in application manifest.";
             }
         }
         catch (PackageManager.NameNotFoundException e) {
             requestedPerms = "Unable to find application package on device";
-            usingResources = "Unable to find application package on device";
+            openFDs = "Unable to find application package on device";
+        }
+    }
+
+    public void setPackageSigHash() {
+        try {
+            @SuppressLint("PackageManagerGetSignatures")
+            Signature[] currentPackageSigs = pm.getPackageInfo(
+                    packageName, PackageManager.GET_SIGNATURES).signatures;
+            for (Signature sig : currentPackageSigs) {
+                packageSigHash += sig.hashCode() + "\n";
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            packageSigHash = "I couldn't find the package on the system";
         }
     }
 
     public void setTextViews() {
-        // Set textViews
+        // Set app name
         ((TextView) findViewById(R.id.appName)).setText(appName);
-        ((TextView) findViewById(R.id.usingResourcesContent)).setText(usingResources);
-        ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedPerms);
 
+        // Set using resources
+        ((TextView) findViewById(R.id.openFDSContent)).setText(openFDs);
+        ((TextView) findViewById(R.id.sharedLibsContent)).setText(sharedLibFiles);
+
+        // Set requested
+        ((TextView) findViewById(R.id.requestedResourcesContent)).setText(requestedUsesPerms);
+        ((TextView) findViewById(R.id.otherResourcesContent)).setText(requestedPerms);
+
+        // Additional info
+        // Set UID
         String appUIDDisplay = "Application runtime UID:      " + appUID;
         ((TextView) findViewById(R.id.application_uid_label)).setText(appUIDDisplay);
-
         // Version Info
         String versionCodeInfo = getString(R.string.version_code_label) +
-                "          " + String.valueOf(versionCode);
+                "     " + String.valueOf(versionCode);
         String versionNameInfo = getString(R.string.version_name_label) +
-                "         " + versionName;
+                "    " + versionName;
         ((TextView) findViewById(R.id.versionCodeLabel)).setText(String.valueOf(versionCodeInfo));
         ((TextView) findViewById(R.id.versionNameLabel)).setText(versionNameInfo);
 
@@ -177,6 +226,9 @@ public class appInfoActivity extends AppCompatActivity {
                 "    " + updatedDate.toString();
         ((TextView) findViewById(R.id.firstInstallLabel)).setText(firstInstDisplay);
         ((TextView) findViewById(R.id.lastUpdateLabel)).setText(lastUpdateDisplay);
+
+        // Signature Hash info
+        ((TextView) findViewById(R.id.sigHashContent)).setText(packageSigHash);
     }
 
     /**
@@ -237,7 +289,7 @@ public class appInfoActivity extends AppCompatActivity {
         packageName = null;
         appName = null;
         requestedPerms = null;
-        usingResources = null;
+        openFDs = null;
         System.gc();
     }
 }

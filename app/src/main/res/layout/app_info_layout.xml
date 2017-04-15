@@ -42,20 +42,65 @@
 
                 <ScrollView
                     android:id="@+id/tab1"
-                    android:paddingTop="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/usingResourcesContent"
+                    <TableLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20sp"
-                        android:paddingStart="20sp"
-                        android:paddingRight="5sp"
-                        android:paddingEnd="5sp"
-                        android:text=""
-                        android:textSize="14sp" />
+                        android:layout_height="wrap_content" >
+                        <TableRow android:layout_marginTop="15dp" >
+                            <TextView
+                                android:id="@+id/openFDSLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text="@string/open_fds_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/openFDSContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text=""
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/sharedLibsLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text="@string/shared_libs_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow android:layout_marginBottom="15dp"  >
+                            <TextView
+                                android:id="@+id/sharedLibsContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text=""
+                                android:textSize="14sp" />
+                        </TableRow>
+                    </TableLayout>
                 </ScrollView>
 
                 <ScrollView
@@ -64,16 +109,62 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/requestedResourcesContent"
+                    <TableLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="20sp"
-                        android:paddingStart="20sp"
-                        android:paddingRight="5sp"
-                        android:paddingEnd="5sp"
-                        android:text=""
-                        android:textSize="14sp" />
+                        android:layout_height="wrap_content">
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/requestedResourcesLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text="@string/requested_perms_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/requestedResourcesContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text=""
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow android:layout_marginTop="10dp" >
+                            <TextView
+                                android:id="@+id/otherResourcesLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text="@string/other_perms_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow android:layout_marginBottom="10dp" >
+                            <TextView
+                                android:id="@+id/otherResourcesContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="5sp"
+                                android:paddingEnd="5sp"
+                                android:text=""
+                                android:textSize="14sp" />
+                        </TableRow>
+                    </TableLayout>
                 </ScrollView>
 
                 <ScrollView
@@ -161,9 +252,36 @@
                                 android:paddingEnd="0sp"
                                 android:textSize="14sp" />
                         </TableRow>
+
                         <TableRow>
                             <TextView
                                 android:id="@+id/lastUpdateLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:textSize="14sp" />
+                        </TableRow>
+                        <TableRow
+                            android:paddingTop="20sp" >
+                            <TextView
+                                android:id="@+id/packageHashLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20sp"
+                                android:paddingStart="20sp"
+                                android:paddingRight="0sp"
+                                android:paddingEnd="0sp"
+                                android:text="@string/hash_label"
+                                android:textColor="@android:color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/sigHashContent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:paddingLeft="20sp"

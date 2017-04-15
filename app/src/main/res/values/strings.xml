@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Sector</string>
+    <string name="open_fds_label">Open File Descriptors:</string>
+    <string name="shared_libs_label">Shared Library Files:</string>
+    <string name="requested_perms_label">User Requested Permissions:</string>
+    <string name="other_perms_label">Other Permissions:</string>
     <string name="version_information">Version Information:</string>
     <string name="version_code_label">Version Code:</string>
     <string name="version_name_label">Version Name:</string>
     <string name="update_info_label">Application Update Information:</string>
     <string name="first_install_label">Installed On:</string>
     <string name="last_update_label">Last Updated:</string>
+    <string name="hash_label">Package Signature Hash:</string>
 </resources>
