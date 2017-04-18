@@ -60,6 +60,12 @@ public class appInfoActivity extends AppCompatActivity {
         doInstantiate();
     }
 
+    /**
+     * doInstantiate()
+     * This method is used to organize the function calls so that all of them are called in a
+     * logical order. It was partly created so I could test the functionality of the onCreate
+     * method without having to do some unit test gymnastics.
+     */
     public void doInstantiate() {
         // Instantiate managers
         pm = getPackageManager();
