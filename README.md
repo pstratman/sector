@@ -67,13 +67,12 @@ Acceptance Criteria:
 1. The application has an onClick event listener that launches another activity.
 2. The new activity displays meta-data about an application.
 
-As a **Sector user**, I need to be able to **refreash the list of applications** so I can **view the most up-to-date information about each application.**
+As a **Sector user**, I need to be able to **view additioanl information about each application** so I can **esnure each applciation is legitimate.**
 
 Acceptance Criteria:
 
-1. Sector provides a method to refresh the information on the screen.
+1. Sector provides a method to display additional application information.
 2. This information is line with the current program patterns.
-3. The information is accurate and effecient.
 
 
 ### Use and Misuse case diagram
