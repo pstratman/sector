@@ -127,3 +127,7 @@ The ListView is an android class that represents a particular view in the applic
 
 #### As a **Sector user**, I need to be able to **click on a list view item** so I can **view detailed information about an application** -- Trello 22
 ![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Activity%20Diagram%20-%20US22.png)
+
+#### As a **Sector user**, I need to be able to **easily find applications** so I can **use sector efficiently** -- Trello 21
+![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/Activity%20Diagram%20-%20US21.png)
+
