@@ -179,9 +179,9 @@ public class appInfoActivity extends AppCompatActivity {
             if (permissions != null){
                 for (PermissionInfo permission : permissions) {
                     if (permission != null) {
-                        String tempPermDesc = permission.loadDescription(pm).toString();
-                        if (!tempPermDesc.contains("null")) {
-                            requestedPerms += tempPermDesc;
+                        if (permission.loadDescription(pm) != null) {
+                            requestedPerms += permission.loadDescription(pm);
+                            requestedPerms += "\n";
                         }
                     }
                 }
@@ -292,9 +292,8 @@ public class appInfoActivity extends AppCompatActivity {
         // Find the process ID of the package
         for (int i = 0; i < runningAppProcessInfo.size(); i++) {
             String runningProc = runningAppProcessInfo.get(i).processName;
-            int runningProcID = runningAppProcessInfo.get(i).pid;
             if (runningProc.equals(packageName)) {
-                PID = runningProcID;
+                PID = runningAppProcessInfo.get(i).pid;
                 break;
             }
         }

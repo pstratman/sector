@@ -3,7 +3,7 @@
     <string name="open_fds_label">Open File Descriptors:</string>
     <string name="shared_libs_label">Shared Library Files:</string>
     <string name="requested_perms_label">User Requested Permissions:</string>
-    <string name="other_perms_label">Other Permissions:</string>
+    <string name="other_perms_label">Other Permissions Descriptions:</string>
     <string name="version_information">Version Information:</string>
     <string name="version_code_label">Version Code:</string>
     <string name="version_name_label">Version Name:</string>

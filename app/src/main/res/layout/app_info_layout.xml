@@ -112,7 +112,7 @@
                     <TableLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
-                        <TableRow>
+                        <TableRow android:layout_marginTop="5dp">
                             <TextView
                                 android:id="@+id/requestedResourcesLabel"
                                 android:layout_width="wrap_content"
