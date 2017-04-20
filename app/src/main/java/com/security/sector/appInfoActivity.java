@@ -178,8 +178,12 @@ public class appInfoActivity extends AppCompatActivity {
             PermissionInfo[] permissions = currentAppPackInfo.permissions;
             if (permissions != null){
                 for (PermissionInfo permission : permissions) {
-                    if (permission != null)
-                        requestedPerms += permission.loadDescription(pm);
+                    if (permission != null) {
+                        String tempPermDesc = permission.loadDescription(pm).toString();
+                        if (!tempPermDesc.contains("null")) {
+                            requestedPerms += tempPermDesc;
+                        }
+                    }
                 }
             } else {
                 requestedPerms = "No other permissions listed in application manifest.";
