@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -163,8 +164,8 @@ public class appInfoActivity extends AppCompatActivity {
             if (versionName == null)
                 versionName = "No version name found.";
             // Set installation/update info
-            installedDate = new Date(currentAppPackInfo.firstInstallTime * 1000);
-            updatedDate = new Date(currentAppPackInfo.lastUpdateTime * 1000);
+            installedDate = new Date(currentAppPackInfo.firstInstallTime);
+            updatedDate = new Date(currentAppPackInfo.lastUpdateTime);
             // Get and set requested permissions from manifest
             String[] requestedPermissions = currentAppPackInfo.requestedPermissions;
             if (requestedPermissions != null) {
@@ -246,10 +247,12 @@ public class appInfoActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.versionNameLabel)).setText(versionNameInfo);
 
         // Installation Info
+        String installedDateString = DateFormat.getDateTimeInstance().format(installedDate);
+        String updatedDateString = DateFormat.getDateTimeInstance().format(updatedDate);
         String firstInstDisplay = getString(R.string.first_install_label) +
-                "       " + installedDate.toString();
+                "       " + installedDateString;
         String lastUpdateDisplay = getString(R.string.last_update_label) +
-                "    " + updatedDate.toString();
+                "    " + updatedDateString;
         ((TextView) findViewById(R.id.firstInstallLabel)).setText(firstInstDisplay);
         ((TextView) findViewById(R.id.lastUpdateLabel)).setText(lastUpdateDisplay);
 
