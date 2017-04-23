@@ -23,6 +23,17 @@ Sector will address this question by fleshing out what resources these applicati
 
 Sector is meant to be a monitoring application and will never be intrusive or bug you with popup notifications and reminders to check back in with it. The merit in Sector is its ability to bring you up to speed about what your technology is doing behind the scenes and give you some comfort about the applications that you are downloading from the app store.
 
+## Installing Sector
+By default, Android devices have a security setting to prohibit the installation of applications from sources other than the Google Play Store. Because Sector isn’t available on the Google Play Store yet, you will need to opt-in to this policy in order to download Sector on your device.
+To enable the ability to install applications from untrusted sources, navigate to the settings menu for your Android device and scroll down until you find the “Personal” section. Click on the “Security” list view item and find the setting entitled “Unknown Sources” under the “Device Administration” section. Then click on the slider to enable applications from unknown sources.
+It is strongly recommended that you opt-out of this security setting again after installing Sector on your device.
+### Installing from this GitHub repository
+Navigate to the Sector GitHub repository on your Android device and click on “app-releases.apk” to view the file in GitHub. Next, click on the download button to download the APK on your device; you may need to use the desktop version of the GitHub site to see the Download button. After the APK has been downloaded, navigate to the file on your device and Android should allow you to install it.
+### Building and Installing Locally with Android Studio
+If you wish to build the Sector APK yourself, simply clone this repository and open it with Android Studio. Next, build the application from within Android Studio by clicking on the hammer icon in the navigation bar to resolve the project dependencies. Finally, click on the “Build” menu item in the Android Studio navigation bar and select either the “Build APK” or “Generate Signed APK” option. Android Studio should build the APK and place it within the project for you.
+The easiest and safest way to get the APK to your device is by emailing it to yourself. When you open the email from your device, Android will give you the option to install Sector from there. 
+
+
 ## Project Timeline
 ![alt tag](https://raw.githubusercontent.com/pstratman/sector/master/GANTT.JPG)
 
