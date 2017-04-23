@@ -1,6 +1,7 @@
 **Table of Contents**
 
 - [Sector](#sector)
+	- [Installing Sector](#installing-sector)
 	- [Project Timeline](#project-timeline)
 	- [Risk List](#risk-list)
 	- [Application Requirements](#application-requirements)
